@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE window SYSTEM "chrome://dlwatch/locale/entities.dtd">
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window class="dialog"
+    title="dlwatch - About"
+    orient="vertical"
+    autostretch="always"
+    onload="sizeToContent()"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <groupbox align="center" orient="horizontal">
+      <vbox>
+        <text value="Public Fox" style="font-weight: bold; font-size: x-large;"/>
+        <text value="ver. 1.06"/>
+        <separator class="thin"/>
+        <text value="&text.createdBy;:" style="font-weight: bold;"/>
+        <text value="Igor Rashnitsov and Eric Edwards" class="url"
+            onclick="window.open('http://www.userreply.com'); window.close();"/>
+        <text value="&text.email;:" style="font-weight: bold;"/>
+        <text value="mrigor@hotmail.com"/>
+        <separator class="thin"/>
+        <text value="&text.homePage;:" style="font-weight: bold;"/>
+        <text value="http://www.userreply.com/"
+            class="url"
+            onclick="window.open('http://www.userreply.com/'); window.close();"/>
+
+          <separator class="thin"/>
+        </vbox>
+        <spring flex="1"/>
+        <image src="chrome://dlwatch/skin/dlwatchb.png"/>
+      </groupbox>
+
+      <hbox>
+        <spacer flex="1"/>
+        <button label="&label.button.close;" oncommand="window.close();"/>
+      </hbox>
+
+    </window>

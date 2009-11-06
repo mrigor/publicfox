@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE window SYSTEM "chrome://dlwatch/locale/entities.dtd">
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+
+<dialog id="dlwatch-options-dialog"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    buttons="accept, cancel"
+    onload="dlwatch_initializeOptions();dlwatchUrlBlockPrefs.readPrefs();"
+    ondialogaccept="dlwatchUrlBlockPrefs.storePrefs();return dlwatch_saveOptions();"
+    title="Public Fox &options;">
+
+    <script type="application/x-javascript" src="chrome://dlwatch/content/common.js"></script>
+    <script type="application/x-javascript" src="chrome://dlwatch/content/options.js"></script>
+    <script type="application/x-javascript" src="chrome://dlwatch/content/md5.js"></script>
+    <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlockPrefs.js"></script>
+
+
+    <grid flex="1">
+
+      <rows>
+        <row/>
+      </rows>
+
+      <columns>
+        <column>
+          <groupbox align="start">
+            <caption label="&general;"/>
+
+            <checkbox id="lock" label="&label.lockDownloads;" checked="true"/>
+            <checkbox id="addonslock" label="&label.lockAddons;"/>
+            <checkbox id="optionslock" label="&label.lockOptions;"/>
+            <checkbox id="aboutconfiglock" label="&label.lockAutoconfig;"/>
+            <checkbox id="addbookmarklock" label="&label.lockBookmarks;"/>
+            <checkbox id="historylock" label="&label.lockHistorySide;"/>
+            <checkbox id="bookmarkSidebarLock" label="&label.lockBookmarkSide;"/>
+            <checkbox id="sanitizeLock" label="&label.lockSanitize;"/>
+
+
+            <separator class="thin"/>
+            <label value="&label.extensionsList;"/>
+            <textbox id="badext" size="50"/>
+            <label value="&label.extensionsListInstructions;"/>
+
+            <separator class="thin"/>
+            <label value="&label.password;" style="font-weight: bold;"/>
+            <textbox type="password" id="pass" size="20"/>
+            <textbox type="password" id="pass2" size="20"/>
+          </groupbox>
+        </column>
+        <column>
+          <vbox>
+            <groupbox>
+              <caption label="&caption.urlBlocking;" />
+              <vbox>
+                <checkbox id="blockSiteCheckbox" label="&label.enableURLBlocking;" />
+                <checkbox id="blocklinks" label="&label.blockBlacklist;" />
+                <radiogroup id="listtypeRadiogroup" onclick="dlwatchUrlBlockPrefs.changeListType()">
+                  <hbox>
+                    <radio id="blacklistRadio" label="&label.blacklist;" />
+                    <!--radio id="whitelistRadio" label="&label.whitelist;" /-->
+                  </hbox>
+                </radiogroup>
+              </vbox>
+            </groupbox>
+            <groupbox>
+              <caption id="listtypeCaption" label="&label.blacklist;" />
+              <hbox>
+                <vbox flex="1">
+                  <listbox id="BlockedWebsitesList">
+                    <listcols>
+                      <listcol flex="1" />
+                    </listcols>
+                    <listhead>
+                      <listheader label="&label.locations;" />
+                    </listhead>
+
+                    <!-- Items -->						
+                  </listbox>
+                </vbox>
+                <vbox>
+                  <button label="&label.add;" oncommand="window.open('chrome://dlwatch/content/urlBlockSetWebsite.xul', '', 'chrome,centerscreen')"/>
+                  <button label="&label.edit;" oncommand="window.open('chrome://dlwatch/content/urlBlockEditWebsite.xul', '', 'chrome,centerscreen')"/>
+                  <button label="&label.remove;" oncommand="dlwatchUrlBlockPrefs.removeLocation()" />
+                  <separator />
+                  <button label="&label.clearList;" oncommand="if(confirm('Are you sure?'))dlwatchUrlBlockPrefs.removeAllLocations()" />
+                  <button label="&label.import;" oncommand="dlwatchUrlBlockPrefs.importList()" />
+                  <button label="&label.export;" oncommand="dlwatchUrlBlockPrefs.exportList()" />
+                  <spacer flex="1" />
+                </vbox>
+              </hbox>
+            </groupbox>
+          </vbox>
+
+        </column>
+      </columns>
+    </grid>
+  </dialog>
+

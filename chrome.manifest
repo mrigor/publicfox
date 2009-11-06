@@ -1,0 +1,23 @@
+content dlwatch chrome/content/
+skin dlwatch default chrome/skin/
+locale dlwatch en-US chrome/locale/en-US/
+
+overlay chrome://browser/content/browser.xul chrome://dlwatch/content/dlwatchOverlay.xul
+overlay chrome://browser/content/sanitize.xul chrome://dlwatch/content/sanitize.xul
+overlay chrome://browser/content/places/places.xul chrome://dlwatch/content/addbookmark.xul
+#overlay chrome://browser/content/history/history-panel.xul chrome://dlwatch/content/addbookmark.xul
+overlay chrome://browser/content/history/history-panel.xul chrome://dlwatch/content/history.xul
+
+overlay chrome://browser/content/bookmarks/bookmarksProperties.xul chrome://dlwatch/content/addbookmark.xul
+overlay chrome://browser/content/bookmarks/addBookmark.xul chrome://dlwatch/content/addbookmark.xul
+overlay chrome://browser/content/bookmarks/addBookmark2.xul chrome://dlwatch/content/addbookmark.xul
+overlay chrome://browser/content/bookmarks/bookmarksPanel.xul chrome://dlwatch/content/bookmarksidebar.xul
+
+overlay chrome://mozapps/content/extensions/extensions.xul chrome://dlwatch/content/addons.xul
+overlay chrome://mozapps/content/xpinstall/xpinstallConfirm.xul chrome://dlwatch/content/xpinstall.xul
+
+overlay chrome://browser/content/preferences/preferences.xul chrome://dlwatch/content/prefs.xul
+overlay chrome://mozapps/content/downloads/unknownContentType.xul chrome://dlwatch/content/saveas.xul
+
+#skins
+style chrome://global/content/customizeToolbar.xul chrome://dlwatch/skin/dlwatch.css

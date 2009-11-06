@@ -1,0 +1,31 @@
+<!ENTITY label.lockDownloads  "Lock Downloads.">
+<!ENTITY label.lockAddons  "Lock Add-ons windows (so users won't uninstall this).">
+<!ENTITY label.lockOptions "Lock Firefox options.">
+<!ENTITY label.lockAutoconfig  "Lock 'about:config' settings page.">
+<!ENTITY label.lockBookmarks  "Lock addition of Bookmarks.">
+<!ENTITY label.lockHistorySide  "Lock History sidebar.">
+<!ENTITY label.lockBookmarkSide  "Lock Bookmark sidebar.">
+<!ENTITY label.lockSanitize  "Lock 'Clear Private Data' window.">
+<!ENTITY label.password  "Lock Password:">
+<!ENTITY options  "Options">
+<!ENTITY general  "General">
+<!ENTITY label.extensionsList  "File Extensions that you dont want downloaded:">
+<!ENTITY label.extensionsListInstructions  "(Separate with comma Ex:  exe,bat,pdf ). Use * to block all.">
+<!ENTITY caption.urlBlocking  "URL Blocking Options">
+<!ENTITY label.enableURLBlocking  "Enable URL blocking">
+<!ENTITY label.blockBlacklist  "Block links to black listed sites.">
+<!ENTITY label.blacklist  "Blacklist">
+<!ENTITY label.whitelist  "Whitelist">
+<!ENTITY label.locations  "Locations">
+<!ENTITY label.remove  "Remove">
+<!ENTITY label.clearList  "Clear List">
+<!ENTITY label.import  "Import">
+<!ENTITY label.export  "Export">
+
+<!ENTITY label.add  "Add">
+<!ENTITY label.edit  "Edit">
+<!ENTITY text.createdBy  "Created By">
+<!ENTITY text.email  "Email">
+<!ENTITY text.homePage  "Home Page">
+<!ENTITY label.button.close  "Close">
+<!ENTITY general  "General">

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="rdf:#$lhT6w1"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.0"
+                   em:maxVersion="3.2a1pre" />
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{9AA46F4F-4DC7-4c06-97AF-6665170634FE}"
+                   em:name="Public Fox"
+                   em:version="1.06"
+                   em:creator="Igor Rashnitsov"
+                   em:description="Blocks bad downloads and locks down Firefox Settings."
+                   em:homepageURL="http://www.userreply.com"
+                   em:iconURL="chrome://dlwatch/skin/dlwatch.png"
+                   em:optionsURL="chrome://dlwatch/content/options.xul"
+                   em:aboutURL="chrome://dlwatch/content/about.xul"
+                   em:contributor="Eric Edwards">
+    <em:targetApplication RDF:resource="rdf:#$lhT6w1"/>
+  </RDF:Description>
+</RDF:RDF>

@@ -1,0 +1,8 @@
+toolbar[iconsize="small"] #dlwatch-toolbar-button {
+  list-style-image: url("chrome://dlwatch/skin/dlwatch-s.png");
+
+}
+#dlwatch-toolbar-button {
+  list-style-image: url("chrome://dlwatch/skin/dlwatch.png");
+
+}

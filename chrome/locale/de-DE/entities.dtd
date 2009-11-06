@@ -1,0 +1,31 @@
+<!ENTITY label.lockDownloads  "Downloads sperren.">
+<!ENTITY label.lockAddons  "Add-on-Fenster sperren.">
+<!ENTITY label.lockOptions "Firefox Einstellungen sperren.">
+<!ENTITY label.lockAutoconfig  "'about:config' Einstellungen sperren.">
+<!ENTITY label.lockBookmarks  "Lesezeichen hinzufügen sperren.">
+<!ENTITY label.lockHistorySide  "Sidebar Chronik sperren.">
+<!ENTITY label.lockBookmarkSide  "Sidebar Lesezeichen sperren.">
+<!ENTITY label.lockSanitize  "'Private Daten löschen'-Fenster sperren.">
+<!ENTITY label.password  "Entsperrpasswort:">
+<!ENTITY options  "Einstellungen">
+<!ENTITY general  "Allgemein">
+<!ENTITY label.extensionsList  "Folgende Dateitypen für Downloads sperren:">
+<!ENTITY label.extensionsListInstructions  "(Durch Kommas trennen, z. B.:  exe,bat,pdf ). Benutzen Sie * um alle zu blockieren.">
+<!ENTITY caption.urlBlocking  "Einstellungen URL-Blockierung">
+<!ENTITY label.enableURLBlocking  "URL-Blockierung aktivieren">
+<!ENTITY label.blockBlacklist  "Links zu Seiten auf der Blacklist blockieren.">
+<!ENTITY label.blacklist  "Blacklist">
+<!ENTITY label.whitelist  "Whitelist">
+<!ENTITY label.locations  "URLs">
+<!ENTITY label.remove  "Entfernen">
+<!ENTITY label.clearList  "List leeren">
+<!ENTITY label.import  "Import">
+<!ENTITY label.export  "Export">
+
+<!ENTITY label.add  "Hinzufügen">
+<!ENTITY label.edit  "Bearbeiten">
+<!ENTITY text.createdBy  "Von">
+<!ENTITY text.email  "E-Mail">
+<!ENTITY text.homePage  "Homepage">
+<!ENTITY label.button.close  "Schließen">
+<!ENTITY general  "Allgemein">
