@@ -135,7 +135,7 @@ function dlwatch_shutdown(){
 }
 
 function dlwatch_checkurl(){
-  var location = window._content.location.href;
+  var location = window._content.location.href.toLowerCase();
   d(location);
   if(location=="about:config" && dlwatch_aboutconfiglock){
     if(!dlwatch_authenticate()) {
