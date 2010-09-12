@@ -11,7 +11,9 @@ overlay chrome://browser/content/history/history-panel.xul chrome://dlwatch/cont
 overlay chrome://browser/content/bookmarks/bookmarksProperties.xul chrome://dlwatch/content/addbookmark.xul
 overlay chrome://browser/content/bookmarks/addBookmark.xul chrome://dlwatch/content/addbookmark.xul
 overlay chrome://browser/content/bookmarks/addBookmark2.xul chrome://dlwatch/content/addbookmark.xul
-overlay chrome://browser/content/bookmarks/bookmarksPanel.xul chrome://dlwatch/content/bookmarksidebar.xul
+
+# using a different method
+#overlay chrome://browser/content/places/editBookmarkOverlay.xul chrome://dlwatch/content/addbookmark.xul
 
 overlay chrome://mozapps/content/extensions/extensions.xul chrome://dlwatch/content/addons.xul
 overlay chrome://mozapps/content/xpinstall/xpinstallConfirm.xul chrome://dlwatch/content/xpinstall.xul

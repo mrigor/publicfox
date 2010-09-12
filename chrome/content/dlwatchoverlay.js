@@ -63,12 +63,10 @@ function dlwatch_savelink(){
 
   }
   gContextMenu.saveLink();
-
 }
 function dlwatch_init(){
   try{
-
-    content.addEventListener('load',dlwatch_urlcheck,false);
+    content.addEventListener('load', dlwatch_urlcheck, false);
     d("init");
 
     //for hiding Addons
@@ -78,26 +76,24 @@ function dlwatch_init(){
     window.removeEventListener("load", dlwatch_init, true);
 
     // Add pref listener
-    var oPref = Components.classes["@mozilla.org/preferences;1"].createInstance(Components.interfaces.nsIPrefBranchInternal);
+    var oPref = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
     oPref.addObserver("extensions.dlwatch.lock", dlwatchPrefObserver, false);
 
     dlwatchPref.QueryInterface(Components.interfaces.nsIPrefBranch2);
     dlwatchPref.addObserver("", dlwatchPrefObserver, false);
 
     if (!dlwatchPref.prefHasUserValue("lock")){
-      dlwatchPref.setBoolPref("lock",true);
+      dlwatchPref.setBoolPref("lock", true);
     }
     if (!dlwatchPref.prefHasUserValue("addbookmarklock")){
-      dlwatchPref.setBoolPref("addbookmarklock",false);
+      dlwatchPref.setBoolPref("addbookmarklock", false);
     }
 
     if(!dlwatchPref.getBoolPref("lock")){
       dlwatch_lock = false;
     }
 
-
     var savelink = document.getElementById("context-savelink");
-
     savelink.setAttribute('oncommand','dlwatch_savelink()');
 
   }catch(e){
@@ -137,9 +133,83 @@ function dlwatch_shutdown(){
 function dlwatch_checkurl(){
   var location = window._content.location.href.toLowerCase();
   d(location);
-  if(location=="about:config" && dlwatch_aboutconfiglock){
+  if( (location.toLowerCase().indexOf("about:config") != -1 && dlwatch_aboutconfiglock) ||
+    (location.toLowerCase().indexOf("about:addons") != -1 && pref.getBoolPref("addonslock")) ||
+    (location.toLowerCase().indexOf("chrome://mozapps/content/extensions/extensions.xul") != -1 && pref.getBoolPref('addonslock'))){
     if(!dlwatch_authenticate()) {
       window._content.location = "about:blank";
     }
   }
+}
+function dlwatch_overwrite_commands(){
+  // bookmarks
+  (function(){
+      var old = PlacesCommandHook.bookmarkPage;
+      PlacesCommandHook.bookmarkPage = function(){
+        var lock = dlwatchPref.getBoolPref('addbookmarklock');
+        if(lock){
+          if(!dlwatch_authenticate()){
+            return;
+          }
+        }
+        old.apply(this, arguments);
+      };
+  })();
+
+  // sidebars
+  (function(){
+      var old = toggleSidebar;
+      toggleSidebar = function(id){
+        // only if sidebar is open
+        if(dlwatch.get(id).getAttribute('checked') != "true"){
+          // list of sidebar commands and corresponding pref names
+          var ids = {
+            'viewBookmarksSidebar': 'bookmarkSidebarLock',
+            'viewHistorySidebar': 'historylock'
+          };
+          if(id in ids){
+            var lock = dlwatchPref.getBoolPref(ids[id]);
+            if(lock){
+              if(!dlwatch_authenticate()){
+                return;
+              }
+            }
+          }
+        }
+        old.apply(this, arguments);
+      }
+  })();
+  // bookmarks toolbar
+  (function(){
+      var old = setToolbarVisibility;
+      setToolbarVisibility = function(toolbar, visible){
+        var id = toolbar.id
+        // TODO: use new pref for toolbar hiding
+        var ids = {
+          'PersonalToolbar': 'bookmarkSidebarLock',
+        }
+        if(visible && id in ids){
+          var lock = dlwatchPref.getBoolPref(ids[id]);
+          if(lock){
+            if(!dlwatch_authenticate()){
+              return;
+            }
+          }
+        }
+        old.apply(this, arguments);
+      };
+  })();
+  // customize toolbar
+  (function(){
+      var old = BrowserCustomizeToolbar;
+      BrowserCustomizeToolbar = function(){
+        var lock = dlwatchPref.getBoolPref('customizeToolbarLock');
+        if(lock){
+          if(!dlwatch_authenticate()){
+            return;
+          }
+        }
+        old.apply(this, arguments);
+      }
+  })();
 }

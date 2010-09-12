@@ -5,6 +5,7 @@
 <!ENTITY label.lockBookmarks  "Lesezeichen hinzufügen sperren.">
 <!ENTITY label.lockHistorySide  "Sidebar Chronik sperren.">
 <!ENTITY label.lockBookmarkSide  "Sidebar Lesezeichen sperren.">
+<!ENTITY label.lockCustomizeToolbar  "Lock Toolbar Customization.">
 <!ENTITY label.lockSanitize  "'Private Daten löschen'-Fenster sperren.">
 <!ENTITY label.password  "Entsperrpasswort:">
 <!ENTITY options  "Einstellungen">

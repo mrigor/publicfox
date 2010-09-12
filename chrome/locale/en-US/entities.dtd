@@ -5,6 +5,7 @@
 <!ENTITY label.lockBookmarks  "Lock addition of Bookmarks.">
 <!ENTITY label.lockHistorySide  "Lock History sidebar.">
 <!ENTITY label.lockBookmarkSide  "Lock Bookmark sidebar.">
+<!ENTITY label.lockCustomizeToolbar  "Lock Toolbar Customization.">
 <!ENTITY label.lockSanitize  "Lock 'Clear Private Data' window.">
 <!ENTITY label.password  "Lock Password:">
 <!ENTITY options  "Options">

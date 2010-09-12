@@ -15,7 +15,6 @@
     <script type="application/x-javascript" src="chrome://dlwatch/content/md5.js"></script>
     <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlockPrefs.js"></script>
 
-
     <grid flex="1">
 
       <rows>
@@ -34,6 +33,7 @@
             <checkbox id="addbookmarklock" label="&label.lockBookmarks;"/>
             <checkbox id="historylock" label="&label.lockHistorySide;"/>
             <checkbox id="bookmarkSidebarLock" label="&label.lockBookmarkSide;"/>
+            <checkbox id="customizeToolbarLock" label="&label.lockCustomizeToolbar;"/>
             <checkbox id="sanitizeLock" label="&label.lockSanitize;"/>
 
 
@@ -75,7 +75,7 @@
                       <listheader label="&label.locations;" />
                     </listhead>
 
-                    <!-- Items -->						
+                    <!-- Items -->
                   </listbox>
                 </vbox>
                 <vbox>
@@ -96,4 +96,3 @@
       </columns>
     </grid>
   </dialog>
-

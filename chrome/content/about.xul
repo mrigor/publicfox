@@ -11,18 +11,18 @@
     <groupbox align="center" orient="horizontal">
       <vbox>
         <text value="Public Fox" style="font-weight: bold; font-size: x-large;"/>
-        <text value="ver. 1.06"/>
+        <text value="ver. 1.07"/>
         <separator class="thin"/>
         <text value="&text.createdBy;:" style="font-weight: bold;"/>
         <text value="Igor Rashnitsov and Eric Edwards" class="url"
-            onclick="window.open('http://www.userreply.com'); window.close();"/>
+            onclick="window.open('http://www.github.com/mrigor'); window.close();"/>
         <text value="&text.email;:" style="font-weight: bold;"/>
         <text value="mrigor@hotmail.com"/>
         <separator class="thin"/>
         <text value="&text.homePage;:" style="font-weight: bold;"/>
-        <text value="http://www.userreply.com/"
+        <text value="http://www.github.com/mrigor"
             class="url"
-            onclick="window.open('http://www.userreply.com/'); window.close();"/>
+            onclick="window.open('http://www.github.com/mrigor'); window.close();"/>
 
           <separator class="thin"/>
         </vbox>

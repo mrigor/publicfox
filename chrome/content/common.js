@@ -1,30 +1,36 @@
 var dlwatch={
-  get:function(id){
+  get: function(id){
     return document.getElementById(id);
   },
-  getPrefs:function(){
+
+  getPrefs: function(){
     return Components.classes["@mozilla.org/preferences-service;1"]
     .getService(Components.interfaces.nsIPrefService)
     .getBranch("extensions.dlwatch.");
 
   },
-  savePrefs:function(){
+
+  savePrefs: function(){
     Components.classes["@mozilla.org/preferences-service;1"].
     getService(Components.interfaces.nsIPrefService).savePrefFile(null);
   },
-  getPrompt:function(){
+
+  getPrompt: function(){
     return Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
     .getService(Components.interfaces.nsIPromptService);
   },
 
-  stringBundle:Components.classes["@mozilla.org/intl/stringbundle;1"]
+  stringBundle: Components.classes["@mozilla.org/intl/stringbundle;1"]
   .getService(Components.interfaces.nsIStringBundleService)
   .createBundle("chrome://dlwatch/locale/strings.properties"),
 
-  getStr:function(msg){
+  getStr: function(msg){
     return this.stringBundle.GetStringFromName(msg);
-  }
+  },
 };
+var PF = dlwatch;
+var dlwatchPref = dlwatch.getPrefs();
+var pref = dlwatchPref;
 
 function d(msg){
   return;
@@ -32,22 +38,19 @@ function d(msg){
   acs.logStringMessage(msg);
 }
 function dlwatch_authenticate(showAlert){
-
   var prompts = dlwatch.getPrompt();
   input = {value:""};
   check = {value:false};
-  okorcancel = prompts.promptPassword(null,
-    'Public Fox '+dlwatch.getStr('authentication'),
-    dlwatch.getStr('enterPassword'),
-    input, null, check
+  okorcancel = prompts.promptPassword(null, 'Public Fox '+dlwatch.getStr('authentication'),
+    dlwatch.getStr('enterPassword'), input, null, check
   );
 
   //return input.value;
   //return check.value;
   //return okorcancel;
 
-  d("in:"+hex_md5(input.value)+" stored:"+dlwatchPref.getCharPref("pass"));
-  if( okorcancel && hex_md5(input.value)  == dlwatchPref.getCharPref("pass") || dlwatchPref.getCharPref("pass")==""){
+  d("in:"+hex_md5(input.value)+" stored:"+pref.getCharPref("pass"));
+  if( okorcancel && hex_md5(input.value)  == pref.getCharPref("pass") || pref.getCharPref("pass")==""){
     return true;
   }
   if( showAlert ){
@@ -58,13 +61,13 @@ function dlwatch_authenticate(showAlert){
 
 
 function dlwatch_authenticate_url(url){
-  if( dlwatchPref.getBoolPref("authopen") == true ){
+  if( pref.getBoolPref("authopen") == true ){
     d('auth opened');
-    d(dlwatchPref.getBoolPref('authlastreturn'));
-    return dlwatchPref.getBoolPref('authlastreturn');
+    d(pref.getBoolPref('authlastreturn'));
+    return pref.getBoolPref('authlastreturn');
   }
 
-  dlwatchPref.setBoolPref("authopen",true);
+  pref.setBoolPref("authopen", true);
 
   //promptPassword
   var prompts = dlwatch.getPrompt();
@@ -77,65 +80,52 @@ function dlwatch_authenticate_url(url){
     input, null, check
   );
 
-  if( okorcancel && hex_md5(input.value)  == dlwatchPref.getCharPref("pass") || dlwatchPref.getCharPref("pass")=="") {
-    setTimeout(function() {dlwatchPref.setBoolPref('authopen', false);}, 1000);
-    dlwatchPref.setBoolPref('authlastreturn',true);
+  if( okorcancel && hex_md5(input.value)  == pref.getCharPref("pass") || pref.getCharPref("pass")=="") {
+    setTimeout(function(){pref.setBoolPref('authopen', false);}, 1000);
+    pref.setBoolPref('authlastreturn',true);
     return true;
-  }
-  else{
-    setTimeout(function() {dlwatchPref.setBoolPref('authopen',false);}, 1000);
-    dlwatchPref.setBoolPref('authlastreturn',false);
+  }else{
+    setTimeout(function(){
+        pref.setBoolPref('authopen',false);
+    }, 1000);
+    pref.setBoolPref('authlastreturn',false);
     alert(dlwatch.getStr('wrongPassword'));
     return false;
   }
 }
 
 function dlwatch_authenticate_url2(url){
-  var dlwatchPref = dlwatch.getPrefs();
-
-  if(!dlwatchPref.prefHasUserValue("authopen") || dlwatchPref.getBoolPref("authopen") == false)
-  {
-    dlwatchPref.setBoolPref("authopen",true);
+  if(!pref.prefHasUserValue("authopen") || pref.getBoolPref("authopen") == false){
+    pref.setBoolPref("authopen",true);
     var params = {
       inn:{
         name:"Public Fox"+dlwatch.getStr('authentication'),
         description:dlwatch.getStr('loginPage'),
-        enabled:true},
+        enabled:true
+      },
       out:null
     };
     window.openDialog("chrome://dlwatch/chrome/login.xul", "", "chrome, dialog, modal, resizable=yes", params).focus();
   }
 }
 
-function login_doSubmit()
-{
-  var dlwatchPref = dlwatch.getPrefs();
-
-  if(hex_md5(document.getElementById("textbox-password").value) == dlwatchPref.getCharPref("pass") || dlwatchPref.getCharPref("pass")== "")
-  {
-
-    //setTimeout(function() {dlwatchPref.setBoolPref("authopen",false);}, 1000);
-    dlwatchPref.setBoolPref("authopen",false);
+function login_doSubmit(){
+  if(hex_md5( PF.get("textbox-password").value) == pref.getCharPref("pass") || pref.getCharPref("pass")== ""){
+    //setTimeout(function() {pref.setBoolPref("authopen",false);}, 1000);
+    pref.setBoolPref("authopen",false);
     return true;
     //window.close();
     //var params = {inn:{name:"FoxFilter Preferences", description:"Set filtering preferences", enabled:true}, out:null};       
     //window.openDialog("chrome://foxfilter/chrome/settings.xul", "", "chrome, dialog, modal, resizable=yes", params).focus();
-  }
-  else
-  {
-    document.getElementById("label-message").value = dlwatch.getStr('invalidPassword');
+  }else{
+    PF.get("label-message").value = dlwatch.getStr('invalidPassword');
     //return false;
   }
-
 }
 
-function login_doCancel()
-{
-  var dlwatchPref = dlwatch.getPrefs();
-
-  //setTimeout(function() {dlwatchPref.setBoolPref("authopen",false);}, 1000);
-  dlwatchPref.setBoolPref("authopen",false);
-
+function login_doCancel(){
+  //setTimeout(function() {pref.setBoolPref("authopen",false);}, 1000);
+  pref.setBoolPref("authopen",false);
   window.close();
   return false;
 }

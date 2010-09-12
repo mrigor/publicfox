@@ -10,4 +10,4 @@ function dlwatch_addbookmark_init(){
   }
 }
 
-window.addEventListener("load",dlwatch_addbookmark_init,false);
+window.addEventListener("load", dlwatch_addbookmark_init,false);
