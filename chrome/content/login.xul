@@ -1,47 +1,39 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <dialog id="donothing" title="Public Fox - Login Required"
-   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-   buttons="accept,cancel"
-   buttonlabelcancel="Cancel"
-   buttonlabelaccept="Submit"
-   ondialogaccept="return login_doSubmit();"
-   ondialogcancel="return login_doCancel();">
-
-<script src="common.js"/>
-<script type="application/x-javascript" src="chrome://dlwatch/content/md5.js"></script>
-
-
-
-    
-    <dialogheader title="Public Fox - Login Required to Change Preferences" description="" style="padding:10px;"/>
-
-
-
-
-    <vbox>
-
-	<label value="Enter your password:" />
-
-
-	<textbox id="textbox-password" value="" onchange="" type="password" />
-	
-	<label id="label-message" value="" style="color:red;" />
-
-    </vbox>	
-
-
-
-
-
-
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    buttons="accept,cancel"
+    buttonlabelcancel="Cancel"
+    buttonlabelaccept="Submit"
+    ondialogaccept="return login_doSubmit();"
+    ondialogcancel="return login_doCancel();">
+  <script>
+  function login_doSubmit(){
+    if(hex_md5( PF.get("textbox-password").value) == pref.getCharPref("pass") || pref.getCharPref("pass")== ""){
+      //setTimeout(function() {pref.setBoolPref("authopen",false);}, 1000);
+      pref.setBoolPref("authopen",false);
+      return true;
+      //window.close();
+      //var params = {inn:{name:"FoxFilter Preferences", description:"Set filtering preferences", enabled:true}, out:null};       
+      //window.openDialog("chrome://foxfilter/chrome/settings.xul", "", "chrome, dialog, modal, resizable=yes", params).focus();
+    }else{
+      PF.get("label-message").value = dlwatch.getStr('invalidPassword');
+      //return false;
+    }
+  }
+  function login_doCancel(){
+    //setTimeout(function() {pref.setBoolPref("authopen",false);}, 1000);
+    pref.setBoolPref("authopen",false);
+    window.close();
+    return false;
+  }
+  </script>
+  <script src="common.js"/>
+  <script type="application/x-javascript" src="chrome://dlwatch/content/md5.js"></script>
+  <dialogheader title="Public Fox - Login Required to Change Preferences" description="" style="padding:10px;"/>
+  <vbox>
+    <label value="Enter your password:" />
+    <textbox id="textbox-password" value="" onchange="" type="password" />
+    <label id="label-message" value="" style="color:red;" />
+  </vbox>	
 </dialog>
-
-
-
-
-
-
-
-
-

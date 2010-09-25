@@ -12,23 +12,6 @@ var dlwatch_aboutconfiglock = dlwatchPref.getBoolPref("aboutconfiglock");
 var dlwatch_addonsref;
 var dlwatch_addons_oncommand;
 
-function dlwatch_enable_addons(){
-  var auth=false;
-  if(!dlwatch_authenticate()){
-    return;
-  }
-  d("enabling");
-  if(dlwatch_addonsref){
-    dlwatchPref.setBoolPref("lock",false);
-    dlwatch_addonsref.hidden = false;
-    document.getElementById('dlwatch-menu').hidden = true;
-  }
-}
-function dlwatch_urlcheck(){
-  // don't execute in options window
-  //if ('undefined'==typeof gBrowser) return;
-  //d(content.contentDocument.location.href);
-}
 function dlwatch_savelink(){
   var lock = dlwatchPref.getBoolPref("lock");
   var l = gContextMenu.getLinkURL().toLowerCase();
@@ -66,7 +49,6 @@ function dlwatch_savelink(){
 }
 function dlwatch_init(){
   try{
-    content.addEventListener('load', dlwatch_urlcheck, false);
     d("init");
 
     //for hiding Addons
@@ -100,8 +82,6 @@ function dlwatch_init(){
     alert("dlwatch (200)\nCould not initialize dlwatch extension.\n"+ e);
   }
 }
-
-
 const dlwatchPrefObserver = {
   observe : function(subject, topic, data){ 
     if (topic != "nsPref:changed"){

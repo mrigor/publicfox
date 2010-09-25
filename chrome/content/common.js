@@ -1,4 +1,4 @@
-var dlwatch={
+var dlwatch = {
   get: function(id){
     return document.getElementById(id);
   },
@@ -109,23 +109,4 @@ function dlwatch_authenticate_url2(url){
   }
 }
 
-function login_doSubmit(){
-  if(hex_md5( PF.get("textbox-password").value) == pref.getCharPref("pass") || pref.getCharPref("pass")== ""){
-    //setTimeout(function() {pref.setBoolPref("authopen",false);}, 1000);
-    pref.setBoolPref("authopen",false);
-    return true;
-    //window.close();
-    //var params = {inn:{name:"FoxFilter Preferences", description:"Set filtering preferences", enabled:true}, out:null};       
-    //window.openDialog("chrome://foxfilter/chrome/settings.xul", "", "chrome, dialog, modal, resizable=yes", params).focus();
-  }else{
-    PF.get("label-message").value = dlwatch.getStr('invalidPassword');
-    //return false;
-  }
-}
 
-function login_doCancel(){
-  //setTimeout(function() {pref.setBoolPref("authopen",false);}, 1000);
-  pref.setBoolPref("authopen",false);
-  window.close();
-  return false;
-}
