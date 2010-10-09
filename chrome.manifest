@@ -5,8 +5,6 @@ locale dlwatch en-US chrome/locale/en-US/
 overlay chrome://browser/content/browser.xul chrome://dlwatch/content/dlwatchOverlay.xul
 overlay chrome://browser/content/sanitize.xul chrome://dlwatch/content/sanitize.xul
 overlay chrome://browser/content/places/places.xul chrome://dlwatch/content/addbookmark.xul
-#overlay chrome://browser/content/history/history-panel.xul chrome://dlwatch/content/addbookmark.xul
-overlay chrome://browser/content/history/history-panel.xul chrome://dlwatch/content/history.xul
 
 overlay chrome://browser/content/bookmarks/bookmarksProperties.xul chrome://dlwatch/content/addbookmark.xul
 overlay chrome://browser/content/bookmarks/addBookmark.xul chrome://dlwatch/content/addbookmark.xul

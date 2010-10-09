@@ -23,10 +23,10 @@ function dlwatchsaveasinit(){
 
       if(badExtArr.length >=1 && badExtArr[0] != "" ) {
         for(var i=0;i<badExtArr.length;i++){
-          d(this.url);
+          PF.log(this.url);
           if(this.tempfile.indexOf("."+badExtArr[i].toLowerCase()) >= 0 ){
             found = true;
-            d("found- "+badExtArr[i]);
+            PF.log("found- "+badExtArr[i]);
           }
 
 
@@ -34,7 +34,7 @@ function dlwatchsaveasinit(){
       }
     }
     if(found){
-      document.documentElement.setAttribute('ondialogaccept', 'if(dlwatch_authenticate()) { ' + onacceptsave +'} else	return false;');
+      document.documentElement.setAttribute('ondialogaccept', 'if(PF.authenticate()) { ' + onacceptsave +'} else	return false;');
     }
 
   }

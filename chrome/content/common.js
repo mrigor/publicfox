@@ -27,17 +27,17 @@ var dlwatch = {
   getStr: function(msg){
     return this.stringBundle.GetStringFromName(msg);
   },
+  log: function(msg){
+    return;
+    var acs = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces["nsIConsoleService"]);
+    acs.logStringMessage(msg);
+  }
 };
 var PF = dlwatch;
 var dlwatchPref = dlwatch.getPrefs();
 var pref = dlwatchPref;
 
-function d(msg){
-  return;
-  var acs = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces["nsIConsoleService"]);
-  acs.logStringMessage(msg);
-}
-function dlwatch_authenticate(showAlert){
+PF['authenticate'] = function(showAlert){
   var prompts = dlwatch.getPrompt();
   input = {value:""};
   check = {value:false};
@@ -49,7 +49,7 @@ function dlwatch_authenticate(showAlert){
   //return check.value;
   //return okorcancel;
 
-  d("in:"+hex_md5(input.value)+" stored:"+pref.getCharPref("pass"));
+  PF.log("in:"+hex_md5(input.value)+" stored:"+pref.getCharPref("pass"));
   if( okorcancel && hex_md5(input.value)  == pref.getCharPref("pass") || pref.getCharPref("pass")==""){
     return true;
   }
@@ -60,10 +60,10 @@ function dlwatch_authenticate(showAlert){
 }
 
 
-function dlwatch_authenticate_url(url){
+PF['authenticate_url'] = function(url){
   if( pref.getBoolPref("authopen") == true ){
-    d('auth opened');
-    d(pref.getBoolPref('authlastreturn'));
+    PF.log('auth opened');
+    PF.log(pref.getBoolPref('authlastreturn'));
     return pref.getBoolPref('authlastreturn');
   }
 
@@ -94,7 +94,7 @@ function dlwatch_authenticate_url(url){
   }
 }
 
-function dlwatch_authenticate_url2(url){
+PF['authenticate_url2'] = function(url){
   if(!pref.prefHasUserValue("authopen") || pref.getBoolPref("authopen") == false){
     pref.setBoolPref("authopen",true);
     var params = {
@@ -108,5 +108,3 @@ function dlwatch_authenticate_url2(url){
     window.openDialog("chrome://dlwatch/chrome/login.xul", "", "chrome, dialog, modal, resizable=yes", params).focus();
   }
 }
-
-

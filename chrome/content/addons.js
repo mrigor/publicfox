@@ -7,7 +7,7 @@ var lock = dlwatchPref.getBoolPref("addonslock");
 
 function dlwatch_addons_init(){
   if(lock){
-    if(!dlwatch_authenticate()){
+    if(!PF.authenticate()){
       window.close();
     }
   }

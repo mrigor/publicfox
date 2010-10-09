@@ -6,7 +6,7 @@ function loadLockCheck(pref){
       }
       var lock = prefs.getBoolPref(pref);
       if(lock){
-        if(!dlwatch_authenticate()){
+        if(!PF.authenticate()){
           window.close();
         }
       }

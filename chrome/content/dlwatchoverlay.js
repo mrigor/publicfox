@@ -12,7 +12,7 @@ var dlwatch_aboutconfiglock = dlwatchPref.getBoolPref("aboutconfiglock");
 var dlwatch_addonsref;
 var dlwatch_addons_oncommand;
 
-function dlwatch_savelink(){
+dlwatch['savelink'] = function(){
   var lock = dlwatchPref.getBoolPref("lock");
   var l = gContextMenu.getLinkURL().toLowerCase();
 
@@ -39,7 +39,7 @@ function dlwatch_savelink(){
     }
 
     if(found){
-      if(!dlwatch_authenticate()){
+      if(!PF.authenticate()){
         return false;
       }
     }
@@ -47,22 +47,22 @@ function dlwatch_savelink(){
   }
   gContextMenu.saveLink();
 }
-function dlwatch_init(){
+dlwatch['init'] = function(){
   try{
-    d("init");
+    PF.log("init");
 
     //for hiding Addons
     // don't execute in options window
     if ('undefined'==typeof gBrowser) return;
 
-    window.removeEventListener("load", dlwatch_init, true);
+    window.removeEventListener("load", dlwatch.init, true);
 
     // Add pref listener
     var oPref = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-    oPref.addObserver("extensions.dlwatch.lock", dlwatchPrefObserver, false);
+    oPref.addObserver("extensions.dlwatch.lock", dlwatch.prefObserver, false);
 
     dlwatchPref.QueryInterface(Components.interfaces.nsIPrefBranch2);
-    dlwatchPref.addObserver("", dlwatchPrefObserver, false);
+    dlwatchPref.addObserver("", dlwatch.prefObserver, false);
 
     if (!dlwatchPref.prefHasUserValue("lock")){
       dlwatchPref.setBoolPref("lock", true);
@@ -76,13 +76,15 @@ function dlwatch_init(){
     }
 
     var savelink = document.getElementById("context-savelink");
-    savelink.setAttribute('oncommand','dlwatch_savelink()');
+    savelink.setAttribute('oncommand','dlwatch.savelink()');
+
+    dlwatch.overwrite_commands();
 
   }catch(e){
     alert("dlwatch (200)\nCould not initialize dlwatch extension.\n"+ e);
   }
-}
-const dlwatchPrefObserver = {
+};
+dlwatch['prefObserver'] = {
   observe : function(subject, topic, data){ 
     if (topic != "nsPref:changed"){
       return;
@@ -94,7 +96,7 @@ const dlwatchPrefObserver = {
         dlwatch_lock = true;
       }else{
         var pref = dlwatchPref.getBoolPref("lock");
-        d("lock-"+pref);
+        PF.log("lock-"+pref);
       }
       break;
     case "aboutconfiglock":
@@ -106,29 +108,29 @@ const dlwatchPrefObserver = {
 
   }
 }
-function dlwatch_shutdown(){
-  dlwatchPref.removeObserver("", dlwatchPrefObserver);
+dlwatch['shutdown'] = function(){
+  dlwatchPref.removeObserver("", dlwatch.prefObserver);
 }
 
-function dlwatch_checkurl(){
+dlwatch['checkurl'] = function(){
   var location = window._content.location.href.toLowerCase();
-  d(location);
+  PF.log(location);
   if( (location.toLowerCase().indexOf("about:config") != -1 && dlwatch_aboutconfiglock) ||
     (location.toLowerCase().indexOf("about:addons") != -1 && pref.getBoolPref("addonslock")) ||
     (location.toLowerCase().indexOf("chrome://mozapps/content/extensions/extensions.xul") != -1 && pref.getBoolPref('addonslock'))){
-    if(!dlwatch_authenticate()) {
+    if(!PF.authenticate()) {
       window._content.location = "about:blank";
     }
   }
 }
-function dlwatch_overwrite_commands(){
+dlwatch['overwrite_commands'] = function (){
   // bookmarks
   (function(){
       var old = PlacesCommandHook.bookmarkPage;
       PlacesCommandHook.bookmarkPage = function(){
         var lock = dlwatchPref.getBoolPref('addbookmarklock');
         if(lock){
-          if(!dlwatch_authenticate()){
+          if(!PF.authenticate()){
             return;
           }
         }
@@ -150,7 +152,7 @@ function dlwatch_overwrite_commands(){
           if(id in ids){
             var lock = dlwatchPref.getBoolPref(ids[id]);
             if(lock){
-              if(!dlwatch_authenticate()){
+              if(!PF.authenticate()){
                 return;
               }
             }
@@ -171,7 +173,7 @@ function dlwatch_overwrite_commands(){
         if(visible && id in ids){
           var lock = dlwatchPref.getBoolPref(ids[id]);
           if(lock){
-            if(!dlwatch_authenticate()){
+            if(!PF.authenticate()){
               return;
             }
           }
@@ -185,11 +187,11 @@ function dlwatch_overwrite_commands(){
       BrowserCustomizeToolbar = function(){
         var lock = dlwatchPref.getBoolPref('customizeToolbarLock');
         if(lock){
-          if(!dlwatch_authenticate()){
+          if(!PF.authenticate()){
             return;
           }
         }
         old.apply(this, arguments);
       }
   })();
-}
+};

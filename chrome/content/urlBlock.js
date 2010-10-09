@@ -13,7 +13,7 @@ var dlwatchUrlBlock = {
         //attempt to fix multiple window prompts
         tempAllowListArray = urlBlockPrefBranch.getCharPref("urlblocktempallow").split("|||");
 
-        d("tempList-" +tempAllowListArray.join(' '));
+        PF.log("tempList-" +tempAllowListArray.join(' '));
 
         //found pattern and its white
         if(!this.isBlackList(urlBlockPrefBranch)){
@@ -25,17 +25,17 @@ var dlwatchUrlBlock = {
 
         //compare against temporary allowed sites
         for(var x=0, tempLen=tempAllowListArray.length; x<tempLen; x++){
-          d(i + " looking for "+arr[i] + " " + tempAllowListArray[x] + " have " + value + " skip-" + skip);
+          PF.log(i + " looking for "+arr[i] + " " + tempAllowListArray[x] + " have " + value + " skip-" + skip);
           if(arr[i] == tempAllowListArray[x]){
             skip = true;
-            d("found bad URL in safelist     allow-"+skip + " tittle-" +document.title);
+            PF.log("found bad URL in safelist     allow-"+skip + " tittle-" +document.title);
             return false;
           }
-          //d("not found skip-"+skip);
+          //PF.log("not found skip-"+skip);
         }
         if(skip) return false;
-        //d("asking password, " + arr[i] + " value " + value );
-        if(!skip && !dlwatch_authenticate_url(value)){
+        //PF.log("asking password, " + arr[i] + " value " + value );
+        if(!skip && !PF.authenticate_url(value)){
           return true;
         }
         dlwatchUrlBlockPrefs.storeTempAllowList(arr[i]);
@@ -48,7 +48,7 @@ var dlwatchUrlBlock = {
     //should block
     if(!this.isBlackList(urlBlockPrefBranch)){
       //return true;
-      if(!dlwatch_authenticate_url(value)){
+      if(!PF.authenticate_url(value)){
         return true;
       }
       return false;

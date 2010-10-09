@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <overlay id="dlwatchSaveAs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <script type="application/x-javascript" src="chrome://dlwatch/content/common.js" />
-<script type="application/x-javascript" src="chrome://dlwatch/content/addbookmarkoverlay.js" />
+<script type="application/x-javascript" src="chrome://dlwatch/content/loadLockCheck.js" />
 <script type="application/x-javascript" src="chrome://dlwatch/content/md5.js" />
+<script type="application/x-javascript">
+  loadLockCheck('addbookmarklock');
+</script>
 </overlay>

@@ -10,16 +10,14 @@
   <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlock.js"></script>
   <script>
     window.addEventListener("load", function(){
-    dlwatch_init();
-    dlwatchUrlBlockPrefs.killTempAllowList();
-    dlwatchPref.setBoolPref('authlastreturn',false);
-    dlwatchPref.setBoolPref('authopen',false);
-    dlwatch_overwrite_commands();
+      dlwatch.init();
+      dlwatchUrlBlockPrefs.killTempAllowList();
+      dlwatchPref.setBoolPref('authlastreturn',false);
+      dlwatchPref.setBoolPref('authopen',false);
     }, false);
-    window.addEventListener("unload", function(e) { dlwatch_shutdown(); }, false);
-    window.addEventListener("DOMContentLoaded", hook_dlwatch_block, true);
-    function hook_dlwatch_block() {
-    window._content.addEventListener("DOMContentLoaded", dlwatch_checkurl, true);
-    }
+    window.addEventListener("unload", dlwatch.shutdown, false);
+    window.addEventListener("DOMContentLoaded", function() {
+      window._content.addEventListener("DOMContentLoaded", dlwatch.checkurl, true);
+    }, true);
   </script>
 </overlay>
