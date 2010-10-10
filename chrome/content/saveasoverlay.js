@@ -3,7 +3,7 @@ var dlwatchPref = dlwatch.getPrefs();
 if (!dlwatchPref.prefHasUserValue("lock")) dlwatchPref.setBoolPref("lock",false);
 var lock = dlwatchPref.getBoolPref("lock");
 
-function dlwatchsaveasinit(){
+PF['saveasinit'] = function(){
   var onacceptsave = document.documentElement.getAttribute('ondialogaccept');
 
   if(lock){
@@ -15,7 +15,7 @@ function dlwatchsaveasinit(){
     if(!dlwatchPref.prefHasUserValue("ext")) dlwatchPref.setCharPref("ext","exe,zip,bat,cmd,rar,tar,bin,gz,iso,que");
     var list = dlwatchPref.getCharPref("ext");
 
-    if(list == "*" ){ 
+    if(list == "*" ){
       found = true 
     }
     else{
@@ -36,10 +36,7 @@ function dlwatchsaveasinit(){
     if(found){
       document.documentElement.setAttribute('ondialogaccept', 'if(PF.authenticate()) { ' + onacceptsave +'} else	return false;');
     }
-
   }
-
 }
-window.addEventListener( "load", dlwatchsaveasinit, false);
+window.addEventListener( "load", PF.saveasinit, false);
 window.addEventListener("unload",function(){document.documentElement.removeAttribute('ondialogaccept');},false);
-
