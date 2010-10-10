@@ -2,7 +2,7 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
-        <em:id>mrigor@hotmail.com</em:id>
+        <em:id>{9AA46F4F-4DC7-4c06-97AF-6665170634FE}</em:id>
         <em:name>Public Fox</em:name>
         <em:version>1.07</em:version>
         <em:description>Blocks bad downloads and locks down Firefox Settings.</em:description>
