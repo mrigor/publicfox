@@ -4,7 +4,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>{9AA46F4F-4DC7-4c06-97AF-6665170634FE}</em:id>
         <em:name>Public Fox</em:name>
-        <em:version>1.08</em:version>
+        <em:version>1.07</em:version>
         <em:description>Blocks bad downloads and locks down Firefox Settings.</em:description>
         <em:creator>Igor Rashnitsov</em:creator>
         <em:homepageURL>http://github.com/mrigor</em:homepageURL>
