@@ -8,7 +8,7 @@ var dlwatchUrlBlock = {
   checkArrayR: function(arr, value) {
     for (var i=0, len=arr.length; i<len; i++){
       var skip = false;
-      var regexp = convert2RegExp(arr[i]);
+      var regexp = PF.convert2RegExp(arr[i]);
       if(regexp && regexp.test(value)){
         //attempt to fix multiple window prompts
         tempAllowListArray = urlBlockPrefBranch.getCharPref("urlblocktempallow").split("|||");
@@ -177,7 +177,7 @@ window.document.getElementById("appcontent").addEventListener("DOMContentLoaded"
 //gURLBar.addEventListener("change", BlockSite.BlockSiteMain, false);
 
 // Observer for HTTP requests to block the sites we don't want
-var observer = {
+PF['observer'] = {
   observe: function(aSubject, aTopic, aData){
     //alert(aSubject + "\n\n" + aTopic + "\n\n" + aData);
     if (aTopic != 'http-on-modify-request')
@@ -207,11 +207,11 @@ var observer = {
 // Add our observer
 var observerService = Components.classes["@mozilla.org/observer-service;1"].
 getService(Components.interfaces.nsIObserverService);
-observerService.addObserver(observer, "http-on-modify-request", false);
+observerService.addObserver(PF.observer, "http-on-modify-request", false);
 
 // Remove observer when current window closes
 window.addEventListener(
   "unload",
-  function() { observerService.removeObserver(observer, "http-on-modify-request");},
+  function() { observerService.removeObserver(PF.observer, "http-on-modify-request");},
   false
 );

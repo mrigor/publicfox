@@ -1,6 +1,6 @@
-var pref = dlwatch.getPrefs();
+var pref = PF.getPrefs();
 
-function dlwatch_initializeOptions() {
+PF['initializeOptions'] = function() {
   var allLocks = [
     'lock',
     'aboutconfiglock',
@@ -11,7 +11,8 @@ function dlwatch_initializeOptions() {
     'customizeToolbarLock',
     'sanitizeLock',
     'historylock',
-    'blocklinks'];
+    'blocklinks'
+    ];
 
   for(var ii= 0, len = allLocks.length; ii< len; ii++){
     if (!pref.prefHasUserValue( allLocks[ii] )){
@@ -29,9 +30,9 @@ function dlwatch_initializeOptions() {
   this.pass = PF.get("pass");
   this.pass2 = PF.get("pass2");
   this.pass.value = this.pass2.value = pref.getCharPref("pass");
-}
+};
 
-function dlwatch_saveOptions(){
+PF['saveOptions'] = function(){
   var p1 = PF.get("pass");
   var p2 = PF.get("pass2");
   if(p1.value != p2.value){
@@ -58,33 +59,17 @@ function dlwatch_saveOptions(){
     'blocklinks'
     ];
 
-  for(var ii = 0, len = allLocks.length; ii < len; ii++){
-    var checked = document.getElementById( allLocks[ii] ).checked;
-    pref.setBoolPref(allLocks[ii], checked);
-  }
-
-  this.badext = document.getElementById("badext").value;
-  pref.setCharPref("ext", this.badext);
-
-  if(this.pass== "" && this.lock){
-    alert(dlwatch.getStr('enterPasswordBeforeLocking'));
-    return false;
-  }
-  dlwatch.savePrefs();
-}
-
-function imtranslatorHomePage(){
-  var url = "http://www.github.com/mrigor";
-  var windowService = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-  var currentWindow = windowService.getMostRecentWindow("navigator:browser");
-
-  if(currentWindow){
-    try{
-      currentWindow.delayedOpenTab(url);
-    }catch(e){
-      currentWindow.loadURI(url);
+    for(var ii = 0, len = allLocks.length; ii < len; ii++){
+      var checked = document.getElementById( allLocks[ii] ).checked;
+      pref.setBoolPref(allLocks[ii], checked);
     }
-  }else{
-    window.open(url);
-  }
+
+    this.badext = document.getElementById("badext").value;
+    pref.setCharPref("ext", this.badext);
+
+    if(this.pass== "" && this.lock){
+      alert(dlwatch.getStr('enterPasswordBeforeLocking'));
+      return false;
+    }
+    dlwatch.savePrefs();
 }

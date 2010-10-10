@@ -5,6 +5,7 @@
     flex="1"
     title="Public Fox"
     ondialogaccept="dlwatchUrlBlockPrefs.addLocation()">
+  <script type="application/x-javascript" src="chrome://dlwatch/content/common.js" />
   <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlockPrefs.js" />
   <vbox>
     <groupbox>

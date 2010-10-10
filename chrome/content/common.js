@@ -39,9 +39,9 @@ var pref = dlwatchPref;
 
 PF['authenticate'] = function(showAlert){
   var prompts = dlwatch.getPrompt();
-  input = {value:""};
-  check = {value:false};
-  okorcancel = prompts.promptPassword(null, 'Public Fox '+dlwatch.getStr('authentication'),
+  var input = {value:""};
+  var check = {value:false};
+  var okorcancel = prompts.promptPassword(null, 'Public Fox '+dlwatch.getStr('authentication'),
     dlwatch.getStr('enterPassword'), input, null, check
   );
 
@@ -71,9 +71,9 @@ PF['authenticate_url'] = function(url){
 
   //promptPassword
   var prompts = dlwatch.getPrompt();
-  input = {value:""};
-  check = {value:false};
-  okorcancel = prompts.promptPassword(
+  var input = {value:""};
+  var check = {value:false};
+  var okorcancel = prompts.promptPassword(
     null,
     'Public Fox '+dlwatch.getStr('authentication'),
     url+dlwatch.getStr('urlFoundOnBlockedList'),
@@ -107,4 +107,22 @@ PF['authenticate_url2'] = function(url){
     };
     window.openDialog("chrome://dlwatch/chrome/login.xul", "", "chrome, dialog, modal, resizable=yes", params).focus();
   }
-}
+};
+PF['convert2RegExp'] = function(pattern){
+// This script converts patterns to regexps.
+  var res = "";
+  if (/^\/.*\/$/.test(pattern)){  // pattern is a regexp already
+    res = pattern.substr(1, pattern.length - 2);
+  }else {
+    res = pattern.replace(/\*+/g, "*")
+    .replace(/(\W)/g, "\\$1")
+    .replace(/\\\*/g, ".*")
+    .replace(/^\\\|/, "^")
+    .replace(/\\\|$/, "$");
+  }
+  try {
+    return new RegExp('^' + res, "i");
+  } catch(error) {
+    return false;
+  }
+};
