@@ -1,4 +1,4 @@
-PF['linebreak'] = {
+dlwatch['linebreak'] = {
   string: function(){
     var mac= /mac/i.test(navigator.platform);
     var win= /win/i.test(navigator.platform);
@@ -223,7 +223,7 @@ var dlwatchUrlBlockPrefs = {
       filepickerExport.file.create(filepickerExport.file.NORMAL_FILE_TYPE, 0666);
 
       exportStream.init(filepickerExport.file, 0x02, 0x200, null);
-      exportStream.write("[urlBlock]" + PF.linebreak.string(), 10 + PF.linebreak.length());
+      exportStream.write("[urlBlock]" + dlwatch.linebreak.string(), 10 + dlwatch.linebreak.length());
 
       var locationList = document.getElementById("BlockedWebsitesList");
       var locationCount = locationList.getRowCount();
@@ -231,7 +231,7 @@ var dlwatchUrlBlockPrefs = {
       for(var i=0; i<locationCount; i++){
         var location = locationList.getItemAtIndex(i).label;
         exportStream.write(location, location.length);
-        exportStream.write(PF.linebreak.string(), PF.linebreak.length());
+        exportStream.write(dlwatch.linebreak.string(), dlwatch.linebreak.length());
       }
 
       exportStream.close();

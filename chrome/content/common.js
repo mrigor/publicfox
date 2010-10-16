@@ -33,11 +33,10 @@ var dlwatch = {
     acs.logStringMessage(msg);
   }
 };
-var PF = dlwatch;
 var dlwatchPref = dlwatch.getPrefs();
 var pref = dlwatchPref;
 
-PF['authenticate'] = function(showAlert){
+dlwatch['authenticate'] = function(showAlert){
   var prompts = dlwatch.getPrompt();
   var input = {value:""};
   var check = {value:false};
@@ -49,7 +48,7 @@ PF['authenticate'] = function(showAlert){
   //return check.value;
   //return okorcancel;
 
-  PF.log("in:"+hex_md5(input.value)+" stored:"+pref.getCharPref("pass"));
+  dlwatch.log("in:"+hex_md5(input.value)+" stored:"+pref.getCharPref("pass"));
   if( okorcancel && hex_md5(input.value)  == pref.getCharPref("pass") || pref.getCharPref("pass")==""){
     return true;
   }
@@ -60,10 +59,10 @@ PF['authenticate'] = function(showAlert){
 }
 
 
-PF['authenticate_url'] = function(url){
+dlwatch['authenticate_url'] = function(url){
   if( pref.getBoolPref("authopen") == true ){
-    PF.log('auth opened');
-    PF.log(pref.getBoolPref('authlastreturn'));
+    dlwatch.log('auth opened');
+    dlwatch.log(pref.getBoolPref('authlastreturn'));
     return pref.getBoolPref('authlastreturn');
   }
 
@@ -94,7 +93,7 @@ PF['authenticate_url'] = function(url){
   }
 }
 
-PF['authenticate_url2'] = function(url){
+dlwatch['authenticate_url2'] = function(url){
   if(!pref.prefHasUserValue("authopen") || pref.getBoolPref("authopen") == false){
     pref.setBoolPref("authopen",true);
     var params = {
@@ -108,7 +107,7 @@ PF['authenticate_url2'] = function(url){
     window.openDialog("chrome://dlwatch/chrome/login.xul", "", "chrome, dialog, modal, resizable=yes", params).focus();
   }
 };
-PF['convert2RegExp'] = function(pattern){
+dlwatch['convert2RegExp'] = function(pattern){
 // This script converts patterns to regexps.
   var res = "";
   if (/^\/.*\/$/.test(pattern)){  // pattern is a regexp already

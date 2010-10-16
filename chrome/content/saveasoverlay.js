@@ -3,7 +3,7 @@ var dlwatchPref = dlwatch.getPrefs();
 if (!dlwatchPref.prefHasUserValue("lock")) dlwatchPref.setBoolPref("lock",false);
 var lock = dlwatchPref.getBoolPref("lock");
 
-PF['saveasinit'] = function(){
+dlwatch['saveasinit'] = function(){
   var onacceptsave = document.documentElement.getAttribute('ondialogaccept');
 
   if(lock){
@@ -23,10 +23,10 @@ PF['saveasinit'] = function(){
 
       if(badExtArr.length >=1 && badExtArr[0] != "" ) {
         for(var i=0;i<badExtArr.length;i++){
-          PF.log(this.url);
+          dlwatch.log(this.url);
           if(this.tempfile.indexOf("."+badExtArr[i].toLowerCase()) >= 0 ){
             found = true;
-            PF.log("found- "+badExtArr[i]);
+            dlwatch.log("found- "+badExtArr[i]);
           }
 
 
@@ -34,9 +34,9 @@ PF['saveasinit'] = function(){
       }
     }
     if(found){
-      document.documentElement.setAttribute('ondialogaccept', 'if(PF.authenticate()) { ' + onacceptsave +'} else	return false;');
+      document.documentElement.setAttribute('ondialogaccept', 'if(dlwatch.authenticate()) { ' + onacceptsave +'} else	return false;');
     }
   }
 }
-window.addEventListener( "load", PF.saveasinit, false);
+window.addEventListener( "load", dlwatch.saveasinit, false);
 window.addEventListener("unload",function(){document.documentElement.removeAttribute('ondialogaccept');},false);

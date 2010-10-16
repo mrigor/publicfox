@@ -39,7 +39,7 @@ dlwatch['savelink'] = function(){
     }
 
     if(found){
-      if(!PF.authenticate()){
+      if(!dlwatch.authenticate()){
         return false;
       }
     }
@@ -49,7 +49,7 @@ dlwatch['savelink'] = function(){
 }
 dlwatch['init'] = function(){
   try{
-    PF.log("init");
+    dlwatch.log("init");
 
     //for hiding Addons
     // don't execute in options window
@@ -96,7 +96,7 @@ dlwatch['prefObserver'] = {
         dlwatch_lock = true;
       }else{
         var pref = dlwatchPref.getBoolPref("lock");
-        PF.log("lock-"+pref);
+        dlwatch.log("lock-"+pref);
       }
       break;
     case "aboutconfiglock":
@@ -114,11 +114,11 @@ dlwatch['shutdown'] = function(){
 
 dlwatch['checkurl'] = function(){
   var location = window._content.location.href.toLowerCase();
-  PF.log(location);
+  dlwatch.log(location);
   if( (location.toLowerCase().indexOf("about:config") != -1 && dlwatch_aboutconfiglock) ||
     (location.toLowerCase().indexOf("about:addons") != -1 && pref.getBoolPref("addonslock")) ||
     (location.toLowerCase().indexOf("chrome://mozapps/content/extensions/extensions.xul") != -1 && pref.getBoolPref('addonslock'))){
-    if(!PF.authenticate()) {
+    if(!dlwatch.authenticate()) {
       window._content.location = "about:blank";
     }
   }
@@ -130,7 +130,7 @@ dlwatch['overwrite_commands'] = function (){
       PlacesCommandHook.bookmarkPage = function(){
         var lock = dlwatchPref.getBoolPref('addbookmarklock');
         if(lock){
-          if(!PF.authenticate()){
+          if(!dlwatch.authenticate()){
             return;
           }
         }
@@ -152,7 +152,7 @@ dlwatch['overwrite_commands'] = function (){
           if(id in ids){
             var lock = dlwatchPref.getBoolPref(ids[id]);
             if(lock){
-              if(!PF.authenticate()){
+              if(!dlwatch.authenticate()){
                 return;
               }
             }
@@ -173,7 +173,7 @@ dlwatch['overwrite_commands'] = function (){
         if(visible && id in ids){
           var lock = dlwatchPref.getBoolPref(ids[id]);
           if(lock){
-            if(!PF.authenticate()){
+            if(!dlwatch.authenticate()){
               return;
             }
           }
@@ -187,7 +187,7 @@ dlwatch['overwrite_commands'] = function (){
       BrowserCustomizeToolbar = function(){
         var lock = dlwatchPref.getBoolPref('customizeToolbarLock');
         if(lock){
-          if(!PF.authenticate()){
+          if(!dlwatch.authenticate()){
             return;
           }
         }

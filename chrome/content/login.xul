@@ -9,11 +9,11 @@
     ondialogcancel="return login_doCancel();">
   <script>
   function login_doSubmit(){
-    if(hex_md5( PF.get("textbox-password").value) == pref.getCharPref("pass") || pref.getCharPref("pass")== ""){
+    if(hex_md5( dlwatch.get("textbox-password").value) == pref.getCharPref("pass") || pref.getCharPref("pass")== ""){
       pref.setBoolPref("authopen",false);
       return true;
     }else{
-      PF.get("label-message").value = dlwatch.getStr('invalidPassword');
+      dlwatch.get("label-message").value = dlwatch.getStr('invalidPassword');
     }
   }
   function login_doCancel(){

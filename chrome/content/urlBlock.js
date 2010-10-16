@@ -8,12 +8,12 @@ var dlwatchUrlBlock = {
   checkArrayR: function(arr, value) {
     for (var i=0, len=arr.length; i<len; i++){
       var skip = false;
-      var regexp = PF.convert2RegExp(arr[i]);
+      var regexp = dlwatch.convert2RegExp(arr[i]);
       if(regexp && regexp.test(value)){
         //attempt to fix multiple window prompts
         tempAllowListArray = urlBlockPrefBranch.getCharPref("urlblocktempallow").split("|||");
 
-        PF.log("tempList-" +tempAllowListArray.join(' '));
+        dlwatch.log("tempList-" +tempAllowListArray.join(' '));
 
         //found pattern and its white
         if(!this.isBlackList(urlBlockPrefBranch)){
@@ -25,17 +25,17 @@ var dlwatchUrlBlock = {
 
         //compare against temporary allowed sites
         for(var x=0, tempLen=tempAllowListArray.length; x<tempLen; x++){
-          PF.log(i + " looking for "+arr[i] + " " + tempAllowListArray[x] + " have " + value + " skip-" + skip);
+          dlwatch.log(i + " looking for "+arr[i] + " " + tempAllowListArray[x] + " have " + value + " skip-" + skip);
           if(arr[i] == tempAllowListArray[x]){
             skip = true;
-            PF.log("found bad URL in safelist     allow-"+skip + " tittle-" +document.title);
+            dlwatch.log("found bad URL in safelist     allow-"+skip + " tittle-" +document.title);
             return false;
           }
-          //PF.log("not found skip-"+skip);
+          //dlwatch.log("not found skip-"+skip);
         }
         if(skip) return false;
-        //PF.log("asking password, " + arr[i] + " value " + value );
-        if(!skip && !PF.authenticate_url(value)){
+        //dlwatch.log("asking password, " + arr[i] + " value " + value );
+        if(!skip && !dlwatch.authenticate_url(value)){
           return true;
         }
         dlwatchUrlBlockPrefs.storeTempAllowList(arr[i]);
@@ -48,7 +48,7 @@ var dlwatchUrlBlock = {
     //should block
     if(!this.isBlackList(urlBlockPrefBranch)){
       //return true;
-      if(!PF.authenticate_url(value)){
+      if(!dlwatch.authenticate_url(value)){
         return true;
       }
       return false;
@@ -177,7 +177,7 @@ window.document.getElementById("appcontent").addEventListener("DOMContentLoaded"
 //gURLBar.addEventListener("change", BlockSite.BlockSiteMain, false);
 
 // Observer for HTTP requests to block the sites we don't want
-PF['observer'] = {
+dlwatch['observer'] = {
   observe: function(aSubject, aTopic, aData){
     //alert(aSubject + "\n\n" + aTopic + "\n\n" + aData);
     if (aTopic != 'http-on-modify-request')
@@ -207,11 +207,11 @@ PF['observer'] = {
 // Add our observer
 var observerService = Components.classes["@mozilla.org/observer-service;1"].
 getService(Components.interfaces.nsIObserverService);
-observerService.addObserver(PF.observer, "http-on-modify-request", false);
+observerService.addObserver(dlwatch.observer, "http-on-modify-request", false);
 
 // Remove observer when current window closes
 window.addEventListener(
   "unload",
-  function() { observerService.removeObserver(PF.observer, "http-on-modify-request");},
+  function() { observerService.removeObserver(dlwatch.observer, "http-on-modify-request");},
   false
 );

@@ -1,6 +1,6 @@
-var pref = PF.getPrefs();
+var pref = dlwatch.getPrefs();
 
-PF['initializeOptions'] = function() {
+dlwatch['initializeOptions'] = function() {
   var allLocks = [
     'lock',
     'aboutconfiglock',
@@ -23,28 +23,28 @@ PF['initializeOptions'] = function() {
   }
 
   if (!pref.prefHasUserValue("ext")) pref.setCharPref("ext", "exe,bat");
-  this.ext = PF.get("badext");
+  this.ext = dlwatch.get("badext");
   this.ext.value = pref.getCharPref("ext");
 
   if(!pref.prefHasUserValue("pass")) pref.setCharPref("pass","");
-  this.pass = PF.get("pass");
-  this.pass2 = PF.get("pass2");
+  this.pass = dlwatch.get("pass");
+  this.pass2 = dlwatch.get("pass2");
   this.pass.value = this.pass2.value = pref.getCharPref("pass");
 };
 
-PF['saveOptions'] = function(){
-  var p1 = PF.get("pass");
-  var p2 = PF.get("pass2");
+dlwatch['saveOptions'] = function(){
+  var p1 = dlwatch.get("pass");
+  var p2 = dlwatch.get("pass2");
   if(p1.value != p2.value){
     alert("Passwords don't match.");
     return false;
   }
 
-  this.pass = PF.get("pass").value;
+  this.pass = dlwatch.get("pass").value;
   if(this.pass != pref.getCharPref("pass"))
     pref.setCharPref("pass",hex_md5(this.pass));
 
-  this.lock = PF.get("lock").checked;
+  this.lock = dlwatch.get("lock").checked;
   pref.setBoolPref("lock", this.lock);
 
   var allLocks = [

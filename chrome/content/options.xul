@@ -6,8 +6,8 @@
 <dialog id="dlwatch-options-dialog"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     buttons="accept, cancel"
-    onload="PF.initializeOptions();dlwatchUrlBlockPrefs.readPrefs();"
-    ondialogaccept="dlwatchUrlBlockPrefs.storePrefs();return PF.saveOptions();"
+    onload="dlwatch.initializeOptions();dlwatchUrlBlockPrefs.readPrefs();"
+    ondialogaccept="dlwatchUrlBlockPrefs.storePrefs();return dlwatch.saveOptions();"
     title="Public Fox &options;">
 
     <script type="application/x-javascript" src="chrome://dlwatch/content/common.js"></script>
