@@ -116,8 +116,8 @@ dlwatch['checkurl'] = function(){
   var location = window._content.location.href.toLowerCase();
   dlwatch.log(location);
   if( (location.toLowerCase().indexOf("about:config") != -1 && dlwatch_aboutconfiglock) ||
-    (location.toLowerCase().indexOf("about:addons") != -1 && pref.getBoolPref("addonslock")) ||
-    (location.toLowerCase().indexOf("chrome://mozapps/content/extensions/extensions.xul") != -1 && pref.getBoolPref('addonslock'))){
+    (location.toLowerCase().indexOf("about:addons") != -1 && dlwatchPref.getBoolPref("addonslock")) ||
+    (location.toLowerCase().indexOf("chrome://mozapps/content/extensions/extensions.xul") != -1 && dlwatchPref.getBoolPref('addonslock'))){
     if(!dlwatch.authenticate()) {
       window._content.location = "about:blank";
     }

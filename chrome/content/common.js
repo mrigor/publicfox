@@ -34,7 +34,6 @@ var dlwatch = {
   }
 };
 var dlwatchPref = dlwatch.getPrefs();
-var pref = dlwatchPref;
 
 dlwatch['authenticate'] = function(showAlert){
   var prompts = dlwatch.getPrompt();
@@ -48,8 +47,8 @@ dlwatch['authenticate'] = function(showAlert){
   //return check.value;
   //return okorcancel;
 
-  dlwatch.log("in:"+hex_md5(input.value)+" stored:"+pref.getCharPref("pass"));
-  if( okorcancel && hex_md5(input.value)  == pref.getCharPref("pass") || pref.getCharPref("pass")==""){
+  dlwatch.log("in:"+hex_md5(input.value)+" stored:"+dlwatchPref.getCharPref("pass"));
+  if( okorcancel && hex_md5(input.value)  == dlwatchPref.getCharPref("pass") || dlwatchPref.getCharPref("pass")==""){
     return true;
   }
   if( showAlert ){
@@ -60,13 +59,13 @@ dlwatch['authenticate'] = function(showAlert){
 
 
 dlwatch['authenticate_url'] = function(url){
-  if( pref.getBoolPref("authopen") == true ){
+  if( dlwatchPref.getBoolPref("authopen") == true ){
     dlwatch.log('auth opened');
-    dlwatch.log(pref.getBoolPref('authlastreturn'));
-    return pref.getBoolPref('authlastreturn');
+    dlwatch.log(dlwatchPref.getBoolPref('authlastreturn'));
+    return dlwatchPref.getBoolPref('authlastreturn');
   }
 
-  pref.setBoolPref("authopen", true);
+  dlwatchPref.setBoolPref("authopen", true);
 
   //promptPassword
   var prompts = dlwatch.getPrompt();
@@ -79,23 +78,23 @@ dlwatch['authenticate_url'] = function(url){
     input, null, check
   );
 
-  if( okorcancel && hex_md5(input.value)  == pref.getCharPref("pass") || pref.getCharPref("pass")=="") {
-    setTimeout(function(){pref.setBoolPref('authopen', false);}, 1000);
-    pref.setBoolPref('authlastreturn',true);
+  if( okorcancel && hex_md5(input.value)  == dlwatchPref.getCharPref("pass") || dlwatchPref.getCharPref("pass")=="") {
+    setTimeout(function(){dlwatchPref.setBoolPref('authopen', false);}, 1000);
+    dlwatchPref.setBoolPref('authlastreturn',true);
     return true;
   }else{
     setTimeout(function(){
-        pref.setBoolPref('authopen',false);
+        dlwatchPref.setBoolPref('authopen',false);
     }, 1000);
-    pref.setBoolPref('authlastreturn',false);
+    dlwatchPref.setBoolPref('authlastreturn',false);
     alert(dlwatch.getStr('wrongPassword'));
     return false;
   }
 }
 
 dlwatch['authenticate_url2'] = function(url){
-  if(!pref.prefHasUserValue("authopen") || pref.getBoolPref("authopen") == false){
-    pref.setBoolPref("authopen",true);
+  if(!dlwatchPref.prefHasUserValue("authopen") || dlwatchPref.getBoolPref("authopen") == false){
+    dlwatchPref.setBoolPref("authopen",true);
     var params = {
       inn:{
         name:"Public Fox"+dlwatch.getStr('authentication'),
