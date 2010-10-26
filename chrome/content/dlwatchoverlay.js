@@ -163,23 +163,25 @@ dlwatch['overwrite_commands'] = function (){
   })();
   // bookmarks toolbar
   (function(){
-      var old = setToolbarVisibility;
-      setToolbarVisibility = function(toolbar, visible){
-        var id = toolbar.id
-        // TODO: use new pref for toolbar hiding
-        var ids = {
-          'PersonalToolbar': 'bookmarkSidebarLock',
-        }
-        if(visible && id in ids){
-          var lock = dlwatchPref.getBoolPref(ids[id]);
-          if(lock){
-            if(!dlwatch.authenticate()){
-              return;
+      if(typeof setToolbarVisibility != 'undefined'){
+        var old = setToolbarVisibility;
+        setToolbarVisibility = function(toolbar, visible){
+          var id = toolbar.id
+          // TODO: use new pref for toolbar hiding
+          var ids = {
+            'PersonalToolbar': 'bookmarkSidebarLock',
+          }
+          if(visible && id in ids){
+            var lock = dlwatchPref.getBoolPref(ids[id]);
+            if(lock){
+              if(!dlwatch.authenticate()){
+                return;
+              }
             }
           }
-        }
-        old.apply(this, arguments);
-      };
+          old.apply(this, arguments);
+        };
+      }
   })();
   // customize toolbar
   (function(){
