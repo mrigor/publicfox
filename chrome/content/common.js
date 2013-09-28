@@ -3,37 +3,69 @@ var dlwatch = {
     return document.getElementById(id);
   },
 
-  getPrefs: function(){
-    return Components.classes["@mozilla.org/preferences-service;1"]
-    .getService(Components.interfaces.nsIPrefService)
-    .getBranch("extensions.dlwatch.");
+  getService: function(aCID, aIID) {
+    return Components.classes["@mozilla.org/"+aCID]
+    .getService(Components.interfaces[aIID]);
+  },
 
+  getPrefs: function(){
+    return dlwatch.getService('preferences-service;1', 'nsIPrefService')
+    .getBranch("extensions.dlwatch.");
   },
 
   savePrefs: function(){
-    Components.classes["@mozilla.org/preferences-service;1"].
-    getService(Components.interfaces.nsIPrefService).savePrefFile(null);
+    dlwatch.getService('preferences-service;1', 'nsIPrefService')
+    .savePrefFile(null);
   },
 
   getPrompt: function(){
-    return Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-    .getService(Components.interfaces.nsIPromptService);
+    return dlwatch.getService('embedcomp/prompt-service;1', 'nsIPromptService');
   },
-
-  stringBundle: Components.classes["@mozilla.org/intl/stringbundle;1"]
-  .getService(Components.interfaces.nsIStringBundleService)
-  .createBundle("chrome://dlwatch/locale/strings.properties"),
-
   getStr: function(msg){
-    return this.stringBundle.GetStringFromName(msg);
+    return dlwatch.stringBundle.GetStringFromName(msg);
   },
+
   log: function(msg){
     return;
-    var acs = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces["nsIConsoleService"]);
+    var acs = dlwatch.getService('consoleservice;1', 'nsIConsoleService');
     acs.logStringMessage(msg);
   }
 };
 var dlwatchPref = dlwatch.getPrefs();
+
+dlwatch['stringBundle'] = dlwatch.getService('intl/stringbundle;1', 'nsIStringBundleService')
+.createBundle("chrome://dlwatch/locale/strings.properties");
+
+
+dlwatch['showHideMenus'] = function(){
+  // hide menues if necessary
+  dlwatch.get('bookmarksMenuPopup').parentNode.hidden =
+    dlwatchPref.getBoolPref("hideBookmarksMenu");
+  dlwatch.get('history-menu').hidden =
+    dlwatchPref.getBoolPref("hideHistoryMenu");
+};
+// enumerate browser/mail windows, calling f() on each of them
+dlwatch['enumerateEditableWindows'] = function(f) {
+  var wm = dlwatch.getService("appshell/window-mediator;1", "nsIWindowMediator");
+  var windows = wm.getEnumerator("");
+  while(windows.hasMoreElements()) {
+    var w = windows.getNext();
+    if("dlwatch" in w)
+      if(!f(w)) break;
+  }
+};
+dlwatch['getRecentWindowForType'] = function() {
+  var recentWindow = null;
+  dlwatch.enumerateEditableWindows(function(w) {
+    recentWindow = w;
+    return false;
+  });
+
+  //if(!recentWindow) {
+  //  alert(dlwatch.getString("needAppWindow"));
+  //}
+  return recentWindow;
+};
 
 dlwatch['authenticate'] = function(showAlert){
   var prompts = dlwatch.getPrompt();

@@ -1,5 +1,6 @@
 <!ENTITY label.lockDownloads  "Downloads sperren.">
 <!ENTITY label.lockAddons  "Add-on-Fenster sperren.">
+<!ENTITY label.lockLibrary  "Lock Library (Downloads/History/Tags/Bookmarks)">
 <!ENTITY label.lockOptions "Firefox Einstellungen sperren.">
 <!ENTITY label.lockAutoconfig  "'about:config' Einstellungen sperren.">
 <!ENTITY label.lockBookmarks  "Lesezeichen hinzufügen sperren.">
@@ -8,6 +9,10 @@
 <!ENTITY label.lockCustomizeToolbar  "Lock Toolbar Customization.">
 <!ENTITY label.lockSanitize  "'Private Daten löschen'-Fenster sperren.">
 <!ENTITY label.password  "Entsperrpasswort:">
+
+<!ENTITY label.hideBookmarksMenu  "Hide Bookmarks menu">
+<!ENTITY label.hideHistoryMenu  "Hide History menu">
+
 <!ENTITY options  "Einstellungen">
 <!ENTITY general  "Allgemein">
 <!ENTITY label.extensionsList  "Folgende Dateitypen für Downloads sperren:">

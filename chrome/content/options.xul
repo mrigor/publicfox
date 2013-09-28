@@ -27,6 +27,7 @@
             <caption label="&general;"/>
 
             <checkbox id="lock" label="&label.lockDownloads;" checked="true"/>
+            <checkbox id="libraryLock" label="&label.lockLibrary;"/>
             <checkbox id="addonslock" label="&label.lockAddons;"/>
             <checkbox id="optionslock" label="&label.lockOptions;"/>
             <checkbox id="aboutconfiglock" label="&label.lockAutoconfig;"/>
@@ -36,6 +37,9 @@
             <checkbox id="customizeToolbarLock" label="&label.lockCustomizeToolbar;"/>
             <checkbox id="sanitizeLock" label="&label.lockSanitize;"/>
 
+            <separator class="thin"/>
+            <checkbox id="hideBookmarksMenu" label="&label.hideBookmarksMenu;"/>
+            <checkbox id="hideHistoryMenu" label="&label.hideHistoryMenu;"/>
 
             <separator class="thin"/>
             <label value="&label.extensionsList;"/>

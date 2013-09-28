@@ -12,6 +12,8 @@
         <em:optionsURL>chrome://dlwatch/content/options.xul</em:optionsURL>
         <em:aboutURL>chrome://dlwatch/content/about.xul</em:aboutURL>
         <em:contributor>Eric Edwards</em:contributor>
+
+        <!-- Firefox -->
         <em:targetApplication>
             <Description>
                 <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>

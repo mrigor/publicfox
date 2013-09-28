@@ -3,15 +3,20 @@ var pref = dlwatch.getPrefs();
 dlwatch['initializeOptions'] = function() {
   var allLocks = [
     'lock',
+
     'aboutconfiglock',
-    'addonslock',
-    'optionslock',
     'addbookmarklock',
+    'addonslock',
+    'blocklinks',
     'bookmarkSidebarLock',
     'customizeToolbarLock',
-    'sanitizeLock',
     'historylock',
-    'blocklinks'
+    'libraryLock',
+    'sanitizeLock',
+    'optionslock',
+
+    'hideBookmarksMenu',
+    'hideHistoryMenu',
     ];
 
   for(var ii= 0, len = allLocks.length; ii< len; ii++){
@@ -49,18 +54,22 @@ dlwatch['saveOptions'] = function(){
 
   var allLocks = [
     'aboutconfiglock',
-    'addonslock',
     'addbookmarklock',
+    'addonslock',
+    'blocklinks',
     'bookmarkSidebarLock',
     'customizeToolbarLock',
-    'sanitizeLock',
     'historylock',
+    'libraryLock',
+    'sanitizeLock',
     'optionslock',
-    'blocklinks'
+
+    'hideBookmarksMenu',
+    'hideHistoryMenu',
     ];
 
     for(var ii = 0, len = allLocks.length; ii < len; ii++){
-      var checked = document.getElementById( allLocks[ii] ).checked;
+      var checked = document.getElementById(allLocks[ii]).checked;
       pref.setBoolPref(allLocks[ii], checked);
     }
 
@@ -72,4 +81,8 @@ dlwatch['saveOptions'] = function(){
       return false;
     }
     dlwatch.savePrefs();
+    var w = dlwatch.getRecentWindowForType();
+    if(w) {
+      w.dlwatch.showHideMenus();
+    }
 }

@@ -1,10 +1,10 @@
 var dlwatchPref = dlwatch.getPrefs();
 
 if (!dlwatchPref.prefHasUserValue("lock")){
-  dlwatchPref.setBoolPref("lock",false);
+  dlwatchPref.setBoolPref("lock", false);
 }
 if (!dlwatchPref.prefHasUserValue("aboutconfiglock")){
-  dlwatchPref.setBoolPref("aboutconfiglock",false);
+  dlwatchPref.setBoolPref("aboutconfiglock", false);
 }
 
 var dlwatch_lock=dlwatchPref.getBoolPref("lock");
@@ -20,7 +20,7 @@ dlwatch['savelink'] = function(){
     var found=false;
     var list = dlwatchPref.getCharPref("ext");
 
-    if(!dlwatchPref.prefHasUserValue("ext")) 
+    if(!dlwatchPref.prefHasUserValue("ext"))
       dlwatchPref.setCharPref("ext","exe,zip,bat,cmd,rar,tar,bin,gz,iso,que");
 
     if(list == "*" ){
@@ -43,17 +43,17 @@ dlwatch['savelink'] = function(){
         return false;
       }
     }
-
   }
   gContextMenu.saveLink();
-}
+};
 dlwatch['init'] = function(){
-  try{
     dlwatch.log("init");
 
     //for hiding Addons
     // don't execute in options window
-    if ('undefined'==typeof gBrowser) return;
+    if('undefined'==typeof gBrowser){
+      return;
+    }
 
     window.removeEventListener("load", dlwatch.init, true);
 
@@ -64,10 +64,10 @@ dlwatch['init'] = function(){
     dlwatchPref.QueryInterface(Components.interfaces.nsIPrefBranch2);
     dlwatchPref.addObserver("", dlwatch.prefObserver, false);
 
-    if (!dlwatchPref.prefHasUserValue("lock")){
+    if(!dlwatchPref.prefHasUserValue("lock")){
       dlwatchPref.setBoolPref("lock", true);
     }
-    if (!dlwatchPref.prefHasUserValue("addbookmarklock")){
+    if(!dlwatchPref.prefHasUserValue("addbookmarklock")){
       dlwatchPref.setBoolPref("addbookmarklock", false);
     }
 
@@ -80,6 +80,9 @@ dlwatch['init'] = function(){
 
     dlwatch.overwrite_commands();
 
+    dlwatch.showHideMenus();
+
+  try{
   }catch(e){
     alert("dlwatch (200)\nCould not initialize dlwatch extension.\n"+ e);
   }
