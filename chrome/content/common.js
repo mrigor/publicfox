@@ -1,4 +1,6 @@
 var dlwatch = {
+  id: "{9AA46F4F-4DC7-4c06-97AF-6665170634FE}",
+
   get: function(id){
     return document.getElementById(id);
   },
@@ -39,10 +41,13 @@ dlwatch['stringBundle'] = dlwatch.getService('intl/stringbundle;1', 'nsIStringBu
 
 dlwatch['showHideMenus'] = function(){
   // hide menues if necessary
-  dlwatch.get('bookmarksMenuPopup').parentNode.hidden =
-    dlwatchPref.getBoolPref("hideBookmarksMenu");
+  var hideBookmarks = dlwatchPref.getBoolPref("hideBookmarksMenu");
+  dlwatch.get('bookmarksMenuPopup').parentNode.hidden = hideBookmarks;
+  dlwatch.get('personal-bookmarks').parentNode.hidden = hideBookmarks;
   dlwatch.get('history-menu').hidden =
     dlwatchPref.getBoolPref("hideHistoryMenu");
+  dlwatch.get('helpSafeMode').hidden =
+    dlwatchPref.getBoolPref("hideSafeMode");
 };
 // enumerate browser/mail windows, calling f() on each of them
 dlwatch['enumerateEditableWindows'] = function(f) {
@@ -155,4 +160,43 @@ dlwatch['convert2RegExp'] = function(pattern){
   } catch(error) {
     return false;
   }
+};
+
+dlwatch['checkVersion'] = function(){
+  var showAbout = false,
+      currVersion = 'none',
+      oldVersion = 'none';
+  var pref = dlwatch.getPrefs();
+  try {
+    oldVersion = pref.getCharPref("currVersion");
+  } catch (e) {}
+
+  function displayReleaseNotes(){
+    if(oldVersion != currVersion && currVersion != "none") {
+      window.setTimeout(function() {
+        var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService();
+        var wmed = wm.QueryInterface(Components.interfaces.nsIWindowMediator);
+        var win = wmed.getMostRecentWindow("navigator:browser");
+
+        var content = win.document.getElementById("content");
+        content.selectedTab = content.addTab('chrome://dlwatch/content/releaseNotes.html');
+      }, 1300);
+
+      pref.setCharPref("currVersion", currVersion);
+
+    }
+  }
+  try {
+    // Firefox <= 3.6
+    var gExtensionManager = Components.classes["@mozilla.org/extensions/manager;1"].getService(
+      Components.interfaces.nsIExtensionManager);
+    currVersion = gExtensionManager.getItemForID(dlwatch.id).version;
+  } catch(e) {
+    // Firefox >=4.0
+    Components.utils.import("resource://gre/modules/AddonManager.jsm");
+    AddonManager.getAddonByID(dlwatch.id, function(addon) {
+      currVersion = addon.version;
+    });
+  }
+  displayReleaseNotes();
 };

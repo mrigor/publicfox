@@ -11,7 +11,7 @@
     <groupbox align="center" orient="horizontal">
       <vbox>
         <text value="Public Fox" style="font-weight: bold; font-size: x-large;"/>
-        <text value="ver. 1.09"/>
+        <text value="ver. 1.10"/>
         <separator class="thin"/>
         <text value="&text.createdBy;:" style="font-weight: bold;"/>
         <text value="Igor Rashnitsov and Eric Edwards" class="url"

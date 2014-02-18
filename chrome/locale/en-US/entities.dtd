@@ -12,6 +12,7 @@
 
 <!ENTITY label.hideBookmarksMenu  "Hide Bookmarks menu">
 <!ENTITY label.hideHistoryMenu  "Hide History menu">
+<!ENTITY label.hideSafeMode  "Hide Safe Mode (in Help menu)">
 
 <!ENTITY options  "Options">
 <!ENTITY general  "General">

@@ -40,6 +40,7 @@
             <separator class="thin"/>
             <checkbox id="hideBookmarksMenu" label="&label.hideBookmarksMenu;"/>
             <checkbox id="hideHistoryMenu" label="&label.hideHistoryMenu;"/>
+            <checkbox id="hideSafeMode" label="&label.hideSafeMode;"/>
 
             <separator class="thin"/>
             <label value="&label.extensionsList;"/>
@@ -78,7 +79,6 @@
                     <listhead>
                       <listheader label="&label.locations;" />
                     </listhead>
-
                     <!-- Items -->
                   </listbox>
                 </vbox>

@@ -173,7 +173,10 @@ var dlwatchUrlBlock = {
 }
 
 // Event listener
-window.document.getElementById("appcontent").addEventListener("DOMContentLoaded", dlwatchUrlBlock.dlwatchUrlBlockMain, false);
+window.document.getElementById("appcontent").addEventListener(
+  "DOMContentLoaded",
+  dlwatchUrlBlock.dlwatchUrlBlockMain,
+  false);
 //gURLBar.addEventListener("change", BlockSite.BlockSiteMain, false);
 
 // Observer for HTTP requests to block the sites we don't want

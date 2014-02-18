@@ -81,7 +81,7 @@ dlwatch['init'] = function(){
     dlwatch.overwrite_commands();
 
     dlwatch.showHideMenus();
-
+    dlwatch.checkVersion();
   try{
   }catch(e){
     alert("dlwatch (200)\nCould not initialize dlwatch extension.\n"+ e);

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://dlwatch/skin/dlwatch.css" type="text/css"?>
 <overlay id="dlwatchOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <script type="application/x-javascript" src="chrome://dlwatch/content/common.js" />
-  <script type="application/x-javascript" src="chrome://dlwatch/content/dlwatchoverlay.js" />
-  <script type="application/x-javascript" src="chrome://dlwatch/content/md5.js" />
-  <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlockOverlay.js" />
-  <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlockPrefs.js" />
-  <script type="application/x-javascript" src="chrome://dlwatch/content/convert2RegExp.js" />
-  <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlock.js" />
+  <script type="application/x-javascript" src="chrome://dlwatch/content/common.js"/>
+  <script type="application/x-javascript" src="chrome://dlwatch/content/dlwatchoverlay.js"/>
+  <script type="application/x-javascript" src="chrome://dlwatch/content/md5.js"/>
+  <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlockOverlay.js"/>
+  <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlockPrefs.js"/>
+  <script type="application/x-javascript" src="chrome://dlwatch/content/convert2RegExp.js"/>
+  <script type="application/x-javascript" src="chrome://dlwatch/content/urlBlock.js"/>
   <script>
     window.addEventListener("load", function(){
       dlwatch.init();
