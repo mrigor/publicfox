@@ -146,7 +146,7 @@ dlwatch['overwrite_commands'] = function (){
       var old = toggleSidebar;
       toggleSidebar = function(id){
         // only if sidebar is open
-        if(dlwatch.get(id).getAttribute('checked') != "true"){
+        if(id != null && dlwatch.get(id).getAttribute('checked') != "true"){
           // list of sidebar commands and corresponding pref names
           var ids = {
             'viewBookmarksSidebar': 'bookmarkSidebarLock',
